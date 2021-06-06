@@ -1,0 +1,12 @@
+name: VertWhitelist
+version: ${project.version}
+main: dev.vertcode.vertwhitelist.VertWhitelistPlugin
+api-version: 1.16
+depend: [ VertLibrary ]
+authors: [ VertCode ]
+description: A whitelist plugin that saves it data in a db and can be synced across servers with Redis.
+website: vertcode.dev
+commands:
+  whitelist:
+    description: Main command for VertWhitelist
+    aliases: [ vertwhitelist ]
