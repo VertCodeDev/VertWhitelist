@@ -4,7 +4,7 @@ main: dev.vertcode.vertwhitelist.VertWhitelistPlugin
 api-version: 1.16
 depend: [ VertLibrary ]
 authors: [ VertCode ]
-description: A whitelist plugin that saves it data in a db and can be synced across servers with Redis.
+description: A global per-server whitelist controllable from anywhere.
 website: vertcode.dev
 commands:
   whitelist:
