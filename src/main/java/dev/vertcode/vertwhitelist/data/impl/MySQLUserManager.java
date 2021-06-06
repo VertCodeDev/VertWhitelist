@@ -38,8 +38,7 @@ public class MySQLUserManager implements UserManager {
 
     @Override
     public void loadAll() {
-        try {
-            Connection connection = getConnection();
+        try (Connection connection = getConnection()) {
             PreparedStatement ps = connection.prepareStatement("SELECT * FROM `" + serverID + "`");
             ResultSet rs = ps.executeQuery();
             rs.beforeFirst();
@@ -56,15 +55,10 @@ public class MySQLUserManager implements UserManager {
 
     @Override
     public void save(UUID uuid) {
-        try {
-            Connection connection = getConnection();
-
+        try (Connection connection = getConnection()) {
             if (existsInDatabase(uuid)) return;
 
-            PreparedStatement ps = connection.prepareStatement("INSERT INTO `" + serverID +
-                    "` (uuid) VALUE " +
-                    "(?)");
-
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO `" + serverID + "` (uuid) VALUE " + "(?)");
             ps.setString(1, uuid.toString());
             ps.executeUpdate();
         } catch (Exception ex) {
@@ -74,8 +68,7 @@ public class MySQLUserManager implements UserManager {
 
     @Override
     public void remove(UUID uuid) {
-        try {
-            Connection connection = getConnection();
+        try (Connection connection = getConnection()) {
             PreparedStatement ps = connection.prepareStatement("DELETE FROM `" + connection + "` WHERE uuid=?");
             ps.setString(1, uuid.toString());
             ps.executeUpdate();
@@ -88,8 +81,8 @@ public class MySQLUserManager implements UserManager {
     public void resetData(boolean fromDB) {
         whitelistedPlayersCache.clear();
         if (!fromDB) return;
-        try {
-            Connection connection = getConnection();
+
+        try (Connection connection = getConnection()) {
             PreparedStatement ps = connection.prepareStatement("DELETE FROM `" + serverID + "`");
             ps.executeUpdate();
         } catch (Exception ex) {
@@ -102,10 +95,8 @@ public class MySQLUserManager implements UserManager {
 
     @Override
     public boolean isWhitelisted(UUID uuid, String serverID) {
-        try {
-            Connection connection = getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM `" + serverID +
-                    "` WHERE uuid=?");
+        try (Connection connection = getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM `" + serverID + "` WHERE uuid=?");
             preparedStatement.setString(1, uuid.toString());
             ResultSet rs = preparedStatement.executeQuery();
             return rs.next();
@@ -115,10 +106,8 @@ public class MySQLUserManager implements UserManager {
     }
 
     private boolean existsInDatabase(UUID uuid) {
-        try {
-            Connection connection = getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM `" + serverID +
-                    "` WHERE uuid=?");
+        try (Connection connection = getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM `" + serverID + "` WHERE uuid=?");
             preparedStatement.setString(1, uuid.toString());
             ResultSet rs = preparedStatement.executeQuery();
             return rs.next();
@@ -128,8 +117,7 @@ public class MySQLUserManager implements UserManager {
     }
 
     private void createTable() {
-        try {
-            Connection connection = getConnection();
+        try (Connection connection = getConnection()) {
             PreparedStatement ps = connection.prepareStatement("CREATE TABLE IF NOT EXISTS `" + serverID +
                     "` " +
                     "(" +

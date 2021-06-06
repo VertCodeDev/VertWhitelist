@@ -22,7 +22,6 @@ public class CacheManager {
             .expireAfterWrite(1, TimeUnit.HOURS)
             .build();
 
-
     /**
      * This method gets the Name of a Player
      *
@@ -54,7 +53,6 @@ public class CacheManager {
             return null;
         }
     }
-
 
     /**
      * This method gets the UUID of a Player from the Cache

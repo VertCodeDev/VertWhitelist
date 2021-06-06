@@ -12,12 +12,10 @@ import java.util.UUID;
 
 public class MongoUserManager implements UserManager {
 
-    private final VertWhitelistPlugin plugin;
     private final MongoDB mongoDB;
     private ServerWhitelist serverWhitelist;
 
     public MongoUserManager() {
-        this.plugin = VertWhitelistPlugin.getInstance();
         this.mongoDB = new MongoDB(new MongoDBSettings(Conf.DATA$MONGO_DB_URI.getString(),
                 "vertwhitelist"), VertWhitelistPlugin.class.getClassLoader());
         this.loadAll();
