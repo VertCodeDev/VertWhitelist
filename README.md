@@ -2,7 +2,11 @@
 
 A whitelist plugin that saves it data in a db and can be synced across servers with redis.
 
+---
+
 ### Information
+
+---
 
 **What is VertWhitelist?**
 
@@ -14,10 +18,12 @@ You set all the hub servers their id to `lobbies`, now when you type /whitelist 
 
 **But what if you want to whitelist 1 of the lobby but want the other lobbies to keep being unwhitelisted?**
 
-Just join that specific lobby and type /whitelist on.
+Join that specific lobby and type /whitelist on.
 (/whitelist on will only enable the whitelist for the server you are on)
 
 ### Configs
+
+---
 
 **config.yml**
 
@@ -99,3 +105,8 @@ threads: 0
 nettyThreads: 0
 ```
 
+### Support
+
+---
+
+Discord » https://vertcode.dev
