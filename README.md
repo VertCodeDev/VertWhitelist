@@ -1,6 +1,6 @@
 ![VertWhitelist](./img/VertWhitelist.png)
 
-A whitelist plugin that saves it data in a db and can be synced across servers with redis.
+A global per-server whitelist controllable from anywhere.
 
 ---
 
@@ -10,7 +10,7 @@ A whitelist plugin that saves it data in a db and can be synced across servers w
 
 **What is VertWhitelist?**
 
-VertWhitelist is a whitelist plugin that creates a synced whitelist with different servers, they just have to match
+VertWhitelist is a whitelist plugin that creates a synced whitelist between different servers, they just have to match
 serverID (Can be changed in the config).
 
 For example:
