@@ -17,7 +17,9 @@ public enum Conf implements EnumConfig {
     DATA$MYSQL$DATABASE("hexaiplock"),
     DATA$MYSQL$USERNAME("username"),
     DATA$MYSQL$PASSWORD("password"),
-    ;
+
+    AUTO_DISABLE$ENABLED(false),
+    AUTO_DISABLE$DATE("08:00 PM 08/14/2021");
 
     private Object value;
 

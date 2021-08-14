@@ -6,12 +6,15 @@ import lombok.Getter;
 import lombok.Setter;
 import org.redisson.api.RList;
 
+import java.text.SimpleDateFormat;
+
 @Getter
 @Setter
 public class WhitelistManager {
 
     private final VertWhitelistPlugin plugin;
     private final String serverID;
+    private long autoCloseTime = 0L;
 
     public WhitelistManager(VertWhitelistPlugin plugin) {
         this.plugin = plugin;
@@ -19,6 +22,13 @@ public class WhitelistManager {
 
         RList<String> servers = this.plugin.getRedisManager().getRedisClient().getList("whitelist:servers");
         if (!servers.contains(serverID)) servers.add(serverID);
+
+        try {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm aa MM/dd/yyyy");
+
+            this.autoCloseTime = simpleDateFormat.parse(Conf.AUTO_DISABLE$DATE.getString()).getTime();
+        } catch (Exception ex) {
+        }
     }
 
     /**
@@ -84,4 +94,12 @@ public class WhitelistManager {
         return this.plugin.getRedisManager().getRedisClient().getList("whitelist:servers").contains(serverID);
     }
 
+    /**
+     * Returns the auto close time.
+     *
+     * @return the time of when the whitelist should automatically disable
+     */
+    public long getAutoCloseTime() {
+        return autoCloseTime;
+    }
 }

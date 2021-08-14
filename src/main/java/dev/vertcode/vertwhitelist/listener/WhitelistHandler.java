@@ -1,5 +1,6 @@
 package dev.vertcode.vertwhitelist.listener;
 
+import dev.vertcode.vertlibrary.config.EnumConfigLoader;
 import dev.vertcode.vertwhitelist.VertWhitelistPlugin;
 import dev.vertcode.vertwhitelist.conf.Conf;
 import dev.vertcode.vertwhitelist.conf.Lang;
@@ -18,6 +19,15 @@ public class WhitelistHandler implements Listener {
 
     @EventHandler
     public void onPlayerJoin(AsyncPlayerPreLoginEvent event) {
+        if (plugin.getWhitelistManager().isWhitelistEnabled() && Conf.AUTO_DISABLE$ENABLED.getBoolean() &&
+                plugin.getWhitelistManager().getAutoCloseTime() <= System.currentTimeMillis()) {
+            Conf.AUTO_DISABLE$ENABLED.setValue(false);
+            VertWhitelistPlugin.getInstance().getConfigLoader("config").ifPresent(EnumConfigLoader::save);
+
+            plugin.getWhitelistManager().disableWhitelist(plugin.getWhitelistManager().getServerID());
+            return;
+        }
+
         if (!plugin.getWhitelistManager().isWhitelistEnabled() ||
                 (plugin.getWhitelistManager().isWhitelistEnabled() && userManager.isWhitelisted(event.getUniqueId())))
             return;
